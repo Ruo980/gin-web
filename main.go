@@ -4,15 +4,14 @@
 // @Description: 应用程序入口函数
 package main
 
-import (
-	"awesomeProject/dao"
-	"awesomeProject/routers"
-	"github.com/gin-gonic/gin"
-)
+import "awesomeProject/cmd"
 
 func main() {
 
-	router := gin.Default()
+	defer cmd.Clean()
+	cmd.Start()
+
+	/*router := gin.Default()
 
 	// 注册路由
 	routers.SetupUserRouter(router)
@@ -25,6 +24,6 @@ func main() {
 	}
 	defer dao.Close()
 
-	router.Run(":9999")
+	router.Run(":9999")*/
 
 }

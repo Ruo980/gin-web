@@ -26,12 +26,12 @@ func (c *Conf) getConf() (*Conf, error) {
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {
-		return nil, fmt.Errorf("failed to read config file: %w", err)
+		return nil, fmt.Errorf("failed to read conf file: %w", err)
 	}
 	var conf Conf
 	err = viper.Unmarshal(&conf) //将
 	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal config: %w", err)
+		return nil, fmt.Errorf("failed to unmarshal conf: %w", err)
 	}
 
 	return &conf, nil
