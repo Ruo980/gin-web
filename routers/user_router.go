@@ -5,20 +5,29 @@
 package routers
 
 import (
-	"awesomeProject/handlers"
-	"awesomeProject/services"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
-func SetupUserRouter(userService *services.UserService) *gin.Engine {
-	router := gin.Default()
-
-	userHandler := handlers.NewUserHandler(userService)
-
-	router.POST("/users", userHandler.CreateUser)
-	router.GET("/users/:id", userHandler.GetUserByID)
-	router.GET("/users", userHandler.GetAllUsers)
-	router.DELETE("/users/:id", userHandler.DeleteUser)
-
-	return router
+func InitUserRouter() {
+	RegistRoute(func(rgPublic *gin.RouterGroup, rgAuth *gin.RouterGroup) {
+		rgPublic.POST("/login", func(context *gin.Context) {
+			context.AbortWithStatusJSON(http.StatusOK, gin.H{"msg": "Login Success"})
+		})
+		rgAuthUser := rgAuth.Group("user")
+		rgAuthUser.GET("", func(context *gin.Context) {
+			context.AbortWithStatusJSON(http.StatusOK, gin.H{
+				"data": []map[string]any{
+					{"id": 1, "name": "zs"},
+					{"id": 2, "name": "ls"},
+				},
+			})
+		})
+		rgAuthUser.GET("/:id", func(context *gin.Context) {
+			context.AbortWithStatusJSON(http.StatusOK, gin.H{
+				"id":   1,
+				"name": "zs",
+			})
+		})
+	})
 }

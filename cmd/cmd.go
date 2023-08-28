@@ -6,11 +6,13 @@ package cmd
 
 import (
 	"awesomeProject/conf"
+	"awesomeProject/routers"
 	"fmt"
 )
 
 func Start() {
 	conf.InitConfig()
+	routers.InitRouter()
 }
 
 func Clean() {
