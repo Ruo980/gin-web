@@ -4,7 +4,9 @@
 // @Description: 应用程序入口函数
 package main
 
-import "awesomeProject/cmd"
+import (
+	"awesomeProject/cmd"
+)
 
 func main() {
 

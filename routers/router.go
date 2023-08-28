@@ -5,9 +5,14 @@
 package routers
 
 import (
+	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	"net/http"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
 // 定义一个函数形式结构体
@@ -25,8 +30,13 @@ func RegistRoute(fn IFnRegistRoute) {
 }
 
 func InitRouter() {
-	r := gin.Default()
 
+	// 启动时创建可取消的上下文并监听：输入ctrl+c会触发应用退出该上下文
+	ctx, cancelCtx := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancelCtx()
+
+	// 初始化Gin框架并注册路由
+	r := gin.Default()
 	rgPublic := r.Group("/api/v1/public")
 	rgAuth := r.Group("/api/v1")
 
@@ -37,15 +47,39 @@ func InitRouter() {
 		fnRegistRoute(rgPublic, rgAuth)
 	}
 
-	//读取配置文件服务端口，设置run
-	stPort := viper.Get("server.port")
+	// 读取配置文件服务端口，设置run
+	stPort := viper.GetString("server.port")
 	if stPort == "" {
 		stPort = "8882"
 	}
-	err := r.Run(fmt.Sprintf(":%s", stPort))
-	if err != nil {
-		panic(fmt.Sprintf("Start Server Error:%s", err.Error()))
+
+	// 启动服务
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%s", stPort),
+		Handler: r,
 	}
+
+	go func() {
+		// 启动失败处理
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			fmt.Println(fmt.Sprintf("Start Server Error:%s", err.Error()))
+			return
+		}
+		// 启动成功
+		fmt.Println(fmt.Sprintf("Start Server Listen:%s", stPort))
+	}()
+
+	<-ctx.Done()
+
+	ctx, cancelShutdown := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelShutdown()
+
+	if err := server.Shutdown(ctx); err != nil {
+		fmt.Println("stop Server Error:%s", err.Error())
+		return
+	}
+	fmt.Println("stop Server Success")
+
 }
 
 func InitBasePlatformRoutes() {
