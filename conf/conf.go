@@ -26,5 +26,5 @@ func InitConfig() {
 	}
 
 	// 打印配置文件中的 "server.port" 的值
-	fmt.Println(viper.GetString("server.port"))
+	//fmt.Println(viper.GetString("server.port"))
 }

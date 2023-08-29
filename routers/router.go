@@ -5,10 +5,13 @@
 package routers
 
 import (
+	_ "awesomeProject/docs"
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 	"os/signal"
 	"syscall"
@@ -47,6 +50,8 @@ func InitRouter() {
 		fnRegistRoute(rgPublic, rgAuth)
 	}
 
+	// 集成swagger
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// 读取配置文件服务端口，设置run
 	stPort := viper.GetString("server.port")
 	if stPort == "" {
