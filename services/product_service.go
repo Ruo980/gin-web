@@ -6,7 +6,7 @@ package services
 
 import (
 	"awesomeProject/dao"
-	"awesomeProject/models"
+	"awesomeProject/model"
 )
 
 type ProductService struct {
@@ -17,18 +17,18 @@ func NewProductService(productDAO *dao.ProductDAO) *ProductService {
 	return &ProductService{productDAO}
 }
 
-func (service *ProductService) CreateProduct(product *models.Product) error {
+func (service *ProductService) CreateProduct(product *model.Product) error {
 	return service.productDAO.Create(product)
 }
 
-func (service *ProductService) GetProductByID(id uint) (*models.Product, error) {
+func (service *ProductService) GetProductByID(id uint) (*model.Product, error) {
 	return service.productDAO.FindByID(id)
 }
 
-func (service *ProductService) GetAllProducts() ([]models.Product, error) {
+func (service *ProductService) GetAllProducts() ([]model.Product, error) {
 	return service.productDAO.FindAll()
 }
 
-func (service *ProductService) DeleteProduct(product *models.Product) error {
+func (service *ProductService) DeleteProduct(product *model.Product) error {
 	return service.productDAO.Delete(product)
 }

@@ -2,7 +2,7 @@
 // @Author: FunCoder
 // @Create: 2023-08-26 14:05
 // @Description:
-package models
+package model
 
 import "time"
 

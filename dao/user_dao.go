@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"awesomeProject/models"
+	"awesomeProject/model"
 	"github.com/jinzhu/gorm"
 )
 
@@ -17,22 +17,22 @@ func NewUserDAO(db *gorm.DB) *UserDAO {
 	return &UserDAO{db}
 }
 
-func (dao *UserDAO) Create(user *models.User) error {
+func (dao *UserDAO) Create(user *model.User) error {
 	return dao.db.Create(user).Error
 }
 
-func (dao *UserDAO) FindByID(id uint) (*models.User, error) {
-	var user models.User
+func (dao *UserDAO) FindByID(id uint) (*model.User, error) {
+	var user model.User
 	err := dao.db.First(&user, id).Error
 	return &user, err
 }
 
-func (dao *UserDAO) FindAll() ([]models.User, error) {
-	var users []models.User
+func (dao *UserDAO) FindAll() ([]model.User, error) {
+	var users []model.User
 	err := dao.db.Find(&users).Error
 	return users, err
 }
 
-func (dao *UserDAO) Delete(user *models.User) error {
+func (dao *UserDAO) Delete(user *model.User) error {
 	return dao.db.Delete(user).Error
 }

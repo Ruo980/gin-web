@@ -6,7 +6,7 @@ package services
 
 import (
 	"awesomeProject/dao"
-	"awesomeProject/models"
+	"awesomeProject/model"
 )
 
 type UserService struct {
@@ -17,18 +17,18 @@ func NewUserService(userDAO *dao.UserDAO) *UserService {
 	return &UserService{userDAO}
 }
 
-func (service *UserService) CreateUser(user *models.User) error {
+func (service *UserService) CreateUser(user *model.User) error {
 	return service.userDAO.Create(user)
 }
 
-func (service *UserService) GetUserByID(id uint) (*models.User, error) {
+func (service *UserService) GetUserByID(id uint) (*model.User, error) {
 	return service.userDAO.FindByID(id)
 }
 
-func (service *UserService) GetAllUsers() ([]models.User, error) {
+func (service *UserService) GetAllUsers() ([]model.User, error) {
 	return service.userDAO.FindAll()
 }
 
-func (service *UserService) DeleteUser(user *models.User) error {
+func (service *UserService) DeleteUser(user *model.User) error {
 	return service.userDAO.Delete(user)
 }

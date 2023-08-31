@@ -1,9 +1,22 @@
 server:
   port: 8081
 
+# 日志相关配置
 mode:
   develop: true
 log:
   MaxSize: 1      # 日志文件最大尺寸(M)，超限会分割
   MaxBackups: 10  # 保留旧文件的最大个数
   MaxAge: 90      # 保留旧文件的最大天数
+
+# 数据库配置
+database:
+  # 连接信息
+  host: localhost
+  port: 3306
+  username: root
+  password: 123456
+  dbname: awesome-project
+  #连接配置
+  maxIdleConn: 100 #最多空闲连接数
+  maxOpenConn: 100 #最多打开连接数
