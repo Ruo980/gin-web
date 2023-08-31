@@ -1,2 +1,9 @@
 server:
   port: 8081
+
+mode:
+  develop: true
+log:
+  MaxSize: 1      # 日志文件最大尺寸(M)，超限会分割
+  MaxBackups: 10  # 保留旧文件的最大个数
+  MaxAge: 90      # 保留旧文件的最大天数

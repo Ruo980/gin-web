@@ -6,6 +6,7 @@ package routers
 
 import (
 	_ "awesomeProject/docs"
+	"awesomeProject/global"
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -65,13 +66,13 @@ func InitRouter() {
 	}
 
 	go func() {
+		// 启动成功
+		global.Logger.Info(fmt.Sprintf("Start Server Listen:%s", stPort))
 		// 启动失败处理
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			fmt.Println(fmt.Sprintf("Start Server Error:%s", err.Error()))
+			global.Logger.Error(fmt.Sprintf("Start Server Error:%s", err.Error()))
 			return
 		}
-		// 启动成功
-		fmt.Println(fmt.Sprintf("Start Server Listen:%s", stPort))
 	}()
 
 	<-ctx.Done()
@@ -80,10 +81,10 @@ func InitRouter() {
 	defer cancelShutdown()
 
 	if err := server.Shutdown(ctx); err != nil {
-		fmt.Println("stop Server Error:%s", err.Error())
+		global.Logger.Error(fmt.Sprintf("stop Server Error:%s", err.Error()))
 		return
 	}
-	fmt.Println("stop Server Success")
+	global.Logger.Info("stop Server Success")
 
 }
 

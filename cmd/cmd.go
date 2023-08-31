@@ -6,12 +6,15 @@ package cmd
 
 import (
 	"awesomeProject/conf"
+	"awesomeProject/global"
 	"awesomeProject/routers"
 	"fmt"
 )
 
 func Start() {
+	// 初始化系统配置
 	conf.InitConfig()
+	global.Logger = conf.InitLogger()
 	routers.InitRouter()
 }
 
