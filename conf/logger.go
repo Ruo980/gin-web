@@ -1,7 +1,7 @@
 // @Program: awesomeProject
 // @Author: FunCoder
 // @Create: 2023-08-31 11:17
-// @Description:
+// @Description: Zap 日志配置文件
 package conf
 
 import (
