@@ -1,7 +1,7 @@
 // @Program: awesomeProject
 // @Author: FunCoder
 // @Create: 2023-09-01 16:31
-// @Description:
+// @Description: 结果响应类
 package api
 
 import (
