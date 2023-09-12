@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/api" title="api接口包" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+     <tree path="/cmd" title="初始化包"/>
+     <tree path="/conf" title="项目配置包"/>
+     <tree path="/dao" title="dao包"/>
+     <tree path="/docs" title="接口文档"/>
+     <tree path="/global" title="全局变量包"/>
+     <tree path="/log" title="日志文件包"/>
+     <tree path="/model" title="实体类包" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+     <tree path="/routers" title="路由包"/>
+    <tree path="/services" title="服务包"/>
+    <tree path="/test" title="测试包"/>
+    <tree path="/utils" title="工具包"/>
+</trees>
