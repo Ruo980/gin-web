@@ -44,6 +44,7 @@ func InitRouter() {
 	rgPublic := r.Group("/api/v1/public")
 	rgAuth := r.Group("/api/v1")
 
+	// 初始化基础平台路由：将路由注册到数组中
 	InitBasePlatformRoutes()
 
 	// 路由注册：调用数组中的函数实现路由注册
@@ -53,12 +54,12 @@ func InitRouter() {
 
 	// 集成swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	// 读取配置文件服务端口，设置run
 	stPort := viper.GetString("server.port")
 	if stPort == "" {
 		stPort = "8882"
 	}
-
 	// 启动服务
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%s", stPort),

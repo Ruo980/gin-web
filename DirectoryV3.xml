@@ -14,4 +14,8 @@
     <tree path="/services" title="服务包"/>
     <tree path="/test" title="测试包"/>
     <tree path="/utils" title="工具包"/>
+    <tree path="/conf/conf.go" title="viper配置：将yaml中数据存入viper对象中"/>
+    <tree path="/conf/settings.yml" title="配置文件：以yaml形式将配置信息存储起来"/>
+    <tree path="/conf/db.go" title="DB数据库配置：从viper对象中读取配置信息生成数据库对象"/>
+    <tree path="/conf/logger.go" title="日志配置：从viper对象中读取配置信息来实现日志对象生成"/>
 </trees>
