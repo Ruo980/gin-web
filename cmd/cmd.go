@@ -21,7 +21,13 @@ func Start() {
 	global.Logger = conf.InitLogger()
 	// 初始化数据库连接
 	db, err := conf.InitDB()
+	if err != nil {
+		// 将数据库初始化错误保存起来，归纳到初始化错误集中
+		utils.AppendError(initErr, err)
+	}
 	global.DB = db
+	// 初始化Redis连接
+	global.RedisClient, err = conf.InitRedis()
 	if err != nil {
 		// 将数据库初始化错误保存起来，归纳到初始化错误集中
 		utils.AppendError(initErr, err)

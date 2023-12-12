@@ -20,3 +20,6 @@ database:
   #连接配置
   maxIdleConn: 100 #最多空闲连接数
   maxOpenConn: 100 #最多打开连接数
+
+redis:
+  url: localhost:6379
