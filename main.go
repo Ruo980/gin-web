@@ -4,28 +4,11 @@
 // @Description: 应用程序入口函数
 package main
 
-import (
-	"awesomeProject/cmd"
-)
+import "awesomeProject/cmd"
 
 func main() {
 
 	defer cmd.Clean()
 	cmd.Start()
-
-	/*router := gin.Default()
-
-	// 注册路由
-	routers.SetupUserRouter(router)
-	routers.SetupProductRouter(router)
-
-	// 初始化数据库连接
-	err := dao.InitMySQL()
-	if err != nil {
-		panic(err)
-	}
-	defer dao.Close()
-
-	router.Run(":9999")*/
 
 }

@@ -23,3 +23,9 @@ database:
 
 redis:
   url: localhost:6379
+
+
+# jwt 配置
+jwt:
+  tokenExpire: 30 # token 过期时间，单位分钟
+  secretKey: szu.cn # 签名密钥
