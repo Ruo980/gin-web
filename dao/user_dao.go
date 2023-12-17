@@ -4,35 +4,24 @@
 // @Description:
 package dao
 
-import (
-	"awesomeProject/model"
-	"github.com/jinzhu/gorm"
-)
+import "awesomeProject/model"
+
+var userDao *UserDAO
 
 type UserDAO struct {
-	db *gorm.DB
+	BaseDao
 }
 
-func NewUserDAO(db *gorm.DB) *UserDAO {
-	return &UserDAO{db}
+func NewUserDAO() *UserDAO {
+	if userDao == nil { // 单例模式
+		userDao = &UserDAO{BaseDao: *NewBaseDao()}
+	}
+	return userDao
 }
 
-func (dao *UserDAO) Create(user *model.User) error {
-	return dao.db.Create(user).Error
-}
-
-func (dao *UserDAO) FindByID(id uint) (*model.User, error) {
+// 定义查询用户的方法：根据用户名和密码查询用户
+func (m UserDAO) GetUserByNameAndPassword(stUserName, stPassword string) model.User {
 	var user model.User
-	err := dao.db.First(&user, id).Error
-	return &user, err
-}
-
-func (dao *UserDAO) FindAll() ([]model.User, error) {
-	var users []model.User
-	err := dao.db.Find(&users).Error
-	return users, err
-}
-
-func (dao *UserDAO) Delete(user *model.User) error {
-	return dao.db.Delete(user).Error
+	m.Orm.Where("user_name = ? and password = ?", stUserName, stPassword).First(&user)
+	return user
 }

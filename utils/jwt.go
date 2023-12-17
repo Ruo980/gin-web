@@ -9,13 +9,13 @@ import (
 
 // 自定义声明结构体并内嵌 jwt.RegisteredClaims 结构体
 type JwtCustClaims struct {
-	ID   int
-	Name string
+	ID   uint   // 用户id
+	Name string // 用户名、账号
 	jwt.RegisteredClaims
 }
 
 // 生成 token 函数:存储用户id与名称
-func GenerateToken(id int, name string) (string, error) {
+func GenerateToken(id uint, name string) (string, error) {
 	// 获取 token 的密钥（KEY）
 	var jwtKey = []byte(viper.GetString("jwt.secretKey"))
 	// 创建 Payload：声明对象并填充数据
