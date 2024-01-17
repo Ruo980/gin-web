@@ -9,26 +9,32 @@ import (
 	"awesomeProject/model"
 )
 
+var productService *ProductService
+
 type ProductService struct {
-	productDAO *dao.ProductDAO
+	BaseService
+	productDao *dao.ProductDao
 }
 
-func NewProductService(productDAO *dao.ProductDAO) *ProductService {
-	return &ProductService{productDAO}
+// NewProductService
+//
+//	@Description: 单例模式
+//	@return *ProductService
+func NewProductService() *ProductService {
+	if productService == nil { // 单例模式
+		productService = &ProductService{
+			productDao: dao.NewProductDao(),
+		}
+	}
+	return productService
 }
 
-func (service *ProductService) CreateProduct(product *model.Product) error {
-	return service.productDAO.Create(product)
-}
-
-func (service *ProductService) GetProductByID(id uint) (*model.Product, error) {
-	return service.productDAO.FindByID(id)
-}
-
-func (service *ProductService) GetAllProducts() ([]model.Product, error) {
-	return service.productDAO.FindAll()
-}
-
-func (service *ProductService) DeleteProduct(product *model.Product) error {
-	return service.productDAO.Delete(product)
+// GetProductByName
+//
+//	@Description: 根据商品名称查询商品
+//	@receiver s
+//	@param stProductName
+//	@return model.Product
+func (s ProductService) GetProductByName(stProductName string) model.Product {
+	return s.productDao.GetProductByName(stProductName)
 }
